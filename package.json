@@ -2,7 +2,7 @@
   "name": "blockscout-frontend",
   "version": "1.0.0",
   "private": false,
-  "homepage": "https://github.com/blockscout/frontend#readme",
+  "homepage": "https://github.com/kadena-io/blockscout-frontend#readme",
   "engines": {
     "node": "22.11.0",
     "npm": "10.9.0"
