@@ -54,7 +54,6 @@ const globalCss: SystemConfig['globalCss'] = {
   ...scrollbar,
   ...entity,
   ...addressEntity,
-  ...networkMenu,
 };
 
 export default globalCss;
