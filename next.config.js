@@ -40,12 +40,23 @@ const moduleExports = {
   output: 'standalone',
   productionBrowserSourceMaps: true,
   serverExternalPackages: ["@opentelemetry/sdk-node", "@opentelemetry/auto-instrumentations-node"],
+  compress: false,
+  allowedDevOrigins: [
+    'chain-20.evm.kadena.local',
+    'chain-21.evm.kadena.local',
+    'chain-22.evm.kadena.local',
+    'chain-23.evm.kadena.local',
+    'chain-24.evm.kadena.local',
+  ],
   experimental: {
     staleTimes: {
       dynamic: 30,
       'static': 180,
     },
     turbo: {
+      optimization: {
+        minimizer: [],
+      },
       rules: {
         '*.svg': {
           loaders: ['@svgr/webpack'],
