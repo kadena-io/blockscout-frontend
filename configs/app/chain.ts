@@ -6,6 +6,7 @@ import { urlValidator } from 'toolkit/components/forms/validators/url';
 import { getEnvValue, parseEnvJson } from './utils';
 
 const DEFAULT_CURRENCY_DECIMALS = 18;
+const DEFAULT_GAS_DECIMALS = 9;
 
 const rollupType = getEnvValue('NEXT_PUBLIC_ROLLUP_TYPE') as RollupType;
 
@@ -46,6 +47,7 @@ const chain = Object.freeze({
     symbol: getEnvValue('NEXT_PUBLIC_NETWORK_SECONDARY_COIN_SYMBOL'),
   },
   hasMultipleGasCurrencies: getEnvValue('NEXT_PUBLIC_NETWORK_MULTIPLE_GAS_CURRENCIES') === 'true',
+  gasDecimals: Number(getEnvValue('NEXT_PUBLIC_NETWORK_GAS_DECIMALS')) || DEFAULT_GAS_DECIMALS,
   tokenStandard: getEnvValue('NEXT_PUBLIC_NETWORK_TOKEN_STANDARD_NAME') || 'ERC',
   rpcUrls,
   isTestnet: getEnvValue('NEXT_PUBLIC_IS_TESTNET') === 'true',
