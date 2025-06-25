@@ -74,9 +74,9 @@ jobs:
                     docker-image: ghcr.io/kadena-io/blockscout-frontend
                     docker-username: ${{ github.actor }}
                     docker-password: ${{ secrets.GITHUB_TOKEN }}
-                    docker-remote-multi-platform: true
-                    docker-arm-host: ${{ secrets.ARM_RUNNER_HOSTNAME }}
-                    docker-arm-host-key: ${{ secrets.ARM_RUNNER_KEY }}
+                    # docker-remote-multi-platform: true
+                    # docker-arm-host: ${{ secrets.ARM_RUNNER_HOSTNAME }}
+                    # docker-arm-host-key: ${{ secrets.ARM_RUNNER_KEY }}
 
             -   name: Build and push
                 uses: docker/build-push-action@v5
