@@ -27,6 +27,6 @@
     "./toolkit/package",
     "./toolkit/theme/design-system/build",
     "./toolkit/theme/design-system/dist",
-    "**/*.pw.tsx"
+    "**/*.pw.tsx" // TODO: this needs to be put back in the include section :21
   ],
 }
