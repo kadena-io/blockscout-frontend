@@ -30,12 +30,9 @@ const sdk = new NodeSDK({
   metricReader: new PeriodicExportingMetricReader({
     exporter:
       process.env.NODE_ENV === 'production' ?
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        new OTLPMetricExporter() as any :
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        new ConsoleMetricExporter() as any,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  }) as any,
+        new OTLPMetricExporter() :
+        new ConsoleMetricExporter(),
+  }),
   instrumentations: [
     getNodeAutoInstrumentations({
       '@opentelemetry/instrumentation-http': {
