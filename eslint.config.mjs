@@ -60,7 +60,7 @@ const gitignorePath = path.resolve(__dirname, '.gitignore');
 export default tseslint.config(
   includeIgnoreFile(gitignorePath),
 
-  { files: [ '**/*.{js,mjs,cjs,ts,jsx,tsx}', '**/*.pw.tsx' ] },
+  { files: [ '**/*.{js,mjs,cjs,ts,jsx,tsx}' ] },
 
   { ignores: [
     'deploy/tools/',
@@ -69,6 +69,7 @@ export default tseslint.config(
     'next.config.js',
     './toolkit/theme/design-system/dist',
     './toolkit/theme/design-system/build',
+    '**/*.pw.tsx',
   ] },
 
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },

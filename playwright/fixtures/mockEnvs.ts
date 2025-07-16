@@ -53,6 +53,7 @@ export const ENVS_MAP: Record<string, Array<[string, string]>> = {
   ],
   userOps: [
     [ 'NEXT_PUBLIC_HAS_USER_OPS', 'true' ],
+    [ 'NEXT_PUBLIC_USER_OPS_INDEXER_API_HOST', 'http://localhost:3110' ],
   ],
   hasContractAuditReports: [
     [ 'NEXT_PUBLIC_HAS_CONTRACT_AUDIT_REPORTS', 'true' ],
@@ -108,5 +109,8 @@ export const ENVS_MAP: Record<string, Array<[string, string]>> = {
   tac: [
     [ 'NEXT_PUBLIC_TAC_OPERATION_LIFECYCLE_API_HOST', 'http://localhost:3100' ],
     [ 'NEXT_PUBLIC_TAC_TON_EXPLORER_URL', 'https://testnet.tonviewer.com' ],
+  ],
+  celo: [
+    [ 'NEXT_PUBLIC_CELO_ENABLED', 'true' ],
   ],
 };

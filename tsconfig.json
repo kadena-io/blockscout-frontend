@@ -25,6 +25,7 @@
     "./deploy/tools/envs-validator",
     "./deploy/tools/favicon-generator",
     "./toolkit/package",
+    "./deploy/tools/multichain-config-generator",
     "./toolkit/theme/design-system/build",
     "./toolkit/theme/design-system/dist",
     "**/*.pw.tsx"
