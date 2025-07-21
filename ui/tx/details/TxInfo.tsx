@@ -199,7 +199,7 @@ const TxInfo = ({ data, tacOperations, isLoading, socketStatus }: Props) => {
         <TxStatus status={ data.status } errorText={ data.status === 'error' ? data.result : undefined } isLoading={ isLoading }/>
         { data.method && (
           <Badge colorPalette={ data.method === 'Multicall' ? 'teal' : 'gray' } loading={ isLoading } truncated ml={ 3 }>
-            { data.method }
+            <chakra.span fontFamily="var(--kda-typography-family-monospace-font)">{ data.method }</chakra.span>
           </Badge>
         ) }
         { data.arbitrum?.contains_message && (

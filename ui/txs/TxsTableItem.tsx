@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/react';
+import { VStack, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Transaction } from 'types/api/transaction';
@@ -72,7 +72,7 @@ const TxsTableItem = ({ tx, showBlockInfo, currentAddress, enableTimeIncrement, 
       <TableCell whiteSpace="nowrap">
         { tx.method && (
           <Badge colorPalette={ tx.method === 'Multicall' ? 'teal' : 'gray' } loading={ isLoading } truncated>
-            <span>{ tx.method }</span>
+            <chakra.span fontFamily="var(--kda-typography-family-monospace-font)">{ tx.method }</chakra.span>
           </Badge>
         ) }
       </TableCell>

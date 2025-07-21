@@ -1,3 +1,4 @@
+import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import { Skeleton } from 'toolkit/chakra/skeleton';
@@ -12,7 +13,10 @@ const GasUsedToTargetRatio = ({ value, isLoading }: Props) => {
   return (
     <Tooltip content="% of Gas Target">
       <Skeleton color="text.secondary" loading={ isLoading }>
-        <span>{ (value > 0 ? '+' : '') + value.toLocaleString(undefined, { maximumFractionDigits: 2 }) }%</span>
+        <chakra.span
+          fontFamily="var(--kda-typography-family-monospace-font)">
+          { (value > 0 ? '+' : '') + value.toLocaleString(undefined, { maximumFractionDigits: 2 }) }%
+        </chakra.span>
       </Skeleton>
     </Tooltip>
   );
