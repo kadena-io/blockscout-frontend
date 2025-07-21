@@ -118,6 +118,7 @@ const LogItem = ({ address, index, topics, data, decoded, type, transaction_hash
           fontSize="sm"
           borderRadius="md"
           bgColor={ isLoading ? undefined : { _light: 'blackAlpha.50', _dark: 'whiteAlpha.50' } }
+          fontFamily="var(--kda-typography-family-monospace-font)"
         >
           { data }
         </Skeleton>

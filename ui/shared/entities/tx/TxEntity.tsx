@@ -67,7 +67,7 @@ const TxEntity = (props: EntityProps) => {
   const content = <Content { ...partsProps.content }/>;
 
   return (
-    <Container { ...partsProps.container }>
+    <Container { ...partsProps.container } className="tx-entity-mono">
       <Icon { ...partsProps.icon }/>
       { props.noLink ? content : <Link { ...partsProps.link }>{ content }</Link> }
       <Copy { ...partsProps.copy }/>
