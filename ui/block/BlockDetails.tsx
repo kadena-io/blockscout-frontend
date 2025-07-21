@@ -116,7 +116,8 @@ const BlockDetails = ({ query }: Props) => {
   const txsNum = (() => {
     const blockTxsNum = (
       <Link href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: heightOrHash, tab: 'txs' } }, multichainContext) }>
-        { data.transactions_count } txn{ data.transactions_count === 1 ? '' : 's' }
+        <Text fontFamily="var(--kda-typography-family-monospace-font)">{ data.transactions_count }</Text>&nbsp;
+        <Text>txn{ data.transactions_count === 1 ? '' : 's' }</Text>
       </Link>
     );
 
@@ -158,7 +159,7 @@ const BlockDetails = ({ query }: Props) => {
         { blockTypeLabel } height
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isPlaceholderData }>
+        <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
           { data.height }
         </Skeleton>
         { data.height === 0 && <Text whiteSpace="pre"> - Genesis Block</Text> }
@@ -196,7 +197,7 @@ const BlockDetails = ({ query }: Props) => {
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             { data.arbitrum.batch_number ?
-              <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.arbitrum.batch_number }/> :
+              <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.arbitrum.batch_number } fontFamily="var(--kda-typography-family-monospace-font)"/> :
               <Skeleton loading={ isPlaceholderData }>Pending</Skeleton> }
           </DetailedInfo.ItemValue>
         </>
@@ -212,7 +213,7 @@ const BlockDetails = ({ query }: Props) => {
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue columnGap={ 3 }>
             { data.optimism.number ?
-              <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.optimism.number }/> :
+              <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.optimism.number } fontFamily="var(--kda-typography-family-monospace-font)"/> :
               <Skeleton loading={ isPlaceholderData }>Pending</Skeleton> }
             { data.optimism.batch_data_container && (
               <OptimisticL2TxnBatchDA
@@ -231,7 +232,7 @@ const BlockDetails = ({ query }: Props) => {
         Size
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isPlaceholderData }>
+        <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
           { data.size.toLocaleString() }
         </Skeleton>
       </DetailedInfo.ItemValue>
@@ -267,7 +268,7 @@ const BlockDetails = ({ query }: Props) => {
             Withdrawals
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isPlaceholderData }>
+            <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
               <Link href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: heightOrHash, tab: 'withdrawals' } }, multichainContext) }>
                 { data.withdrawals_count } withdrawal{ data.withdrawals_count === 1 ? '' : 's' }
               </Link>
@@ -286,7 +287,7 @@ const BlockDetails = ({ query }: Props) => {
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             { data.zksync.batch_number ?
-              <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.zksync.batch_number }/> :
+              <BatchEntityL2 isLoading={ isPlaceholderData } number={ data.zksync.batch_number } fontFamily="var(--kda-typography-family-monospace-font)"/> :
               <Skeleton loading={ isPlaceholderData }>Pending</Skeleton> }
           </DetailedInfo.ItemValue>
         </>
@@ -381,7 +382,7 @@ const BlockDetails = ({ query }: Props) => {
             Block reward
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue columnGap={ 1 }>
-            <Skeleton loading={ isPlaceholderData }>
+            <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
               { totalReward.dividedBy(WEI).toFixed() } { currencyUnits.ether }
             </Skeleton>
             { rewardBreakDown }
@@ -398,7 +399,7 @@ const BlockDetails = ({ query }: Props) => {
             >
               { type }
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue>
+            <DetailedInfo.ItemValue fontFamily="var(--kda-typography-family-monospace-font)">
               { BigNumber(reward).dividedBy(WEI).toFixed() } { currencyUnits.ether }
             </DetailedInfo.ItemValue>
           </React.Fragment>
@@ -414,7 +415,7 @@ const BlockDetails = ({ query }: Props) => {
             View
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isPlaceholderData }>
+            <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
               { data.zilliqa.view }
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -432,7 +433,7 @@ const BlockDetails = ({ query }: Props) => {
         Gas used
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isPlaceholderData }>
+        <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
           { BigNumber(data.gas_used || 0).toFormat() }
         </Skeleton>
         <BlockGasUsed
@@ -451,7 +452,7 @@ const BlockDetails = ({ query }: Props) => {
         Gas limit
       </DetailedInfo.ItemLabel>
       <DetailedInfo.ItemValue>
-        <Skeleton loading={ isPlaceholderData }>
+        <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
           { BigNumber(data.gas_limit).toFormat() }
         </Skeleton>
       </DetailedInfo.ItemValue>
@@ -465,7 +466,7 @@ const BlockDetails = ({ query }: Props) => {
             Minimum gas price
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isPlaceholderData }>
+            <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
               { BigNumber(data.minimum_gas_price).dividedBy(GWEI).toFormat() } { currencyUnits.gwei }
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -485,8 +486,10 @@ const BlockDetails = ({ query }: Props) => {
               <Skeleton loading={ isPlaceholderData } h="20px" maxW="380px" w="100%"/>
             ) : (
               <>
-                <Text>{ BigNumber(data.base_fee_per_gas).dividedBy(WEI).toFixed() } { currencyUnits.ether } </Text>
-                <Text color="text.secondary" whiteSpace="pre">
+                <Text fontFamily="var(--kda-typography-family-monospace-font)">
+                  { BigNumber(data.base_fee_per_gas).dividedBy(WEI).toFixed() } { currencyUnits.ether }
+                </Text>
+                <Text color="text.secondary" whiteSpace="pre" fontFamily="var(--kda-typography-family-monospace-font)">
                   { space }({ BigNumber(data.base_fee_per_gas).dividedBy(WEI_IN_GWEI).toFixed() } { currencyUnits.gwei })
                 </Text>
               </>
@@ -508,7 +511,7 @@ const BlockDetails = ({ query }: Props) => {
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <IconSvg name="flame" boxSize={ 5 } color="gray.500" isLoading={ isPlaceholderData }/>
-            <Skeleton loading={ isPlaceholderData } ml={ 2 }>
+            <Skeleton loading={ isPlaceholderData } ml={ 2 } fontFamily="var(--kda-typography-family-monospace-font)">
               { burntFees.dividedBy(WEI).toFixed() } { currencyUnits.ether }
             </Skeleton>
             { !txFees.isEqualTo(ZERO) && (
@@ -517,6 +520,7 @@ const BlockDetails = ({ query }: Props) => {
                   ml={ 4 }
                   value={ burntFees.dividedBy(txFees).toNumber() }
                   isLoading={ isPlaceholderData }
+                  fontFamily="var(--kda-typography-family-monospace-font)"
                 />
               </Tooltip>
             ) }
@@ -533,7 +537,7 @@ const BlockDetails = ({ query }: Props) => {
             Priority fee / Tip
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isPlaceholderData }>
+            <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
               { BigNumber(data.priority_fee).dividedBy(WEI).toFixed() } { currencyUnits.ether }
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -689,7 +693,7 @@ const BlockDetails = ({ query }: Props) => {
             >
               Send count
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue>
+            <DetailedInfo.ItemValue fontFamily="var(--kda-typography-family-monospace-font)">
               { data.arbitrum.send_count.toLocaleString() }
             </DetailedInfo.ItemValue>
 
@@ -699,7 +703,7 @@ const BlockDetails = ({ query }: Props) => {
             >
               Send root
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue>
+            <DetailedInfo.ItemValue fontFamily="var(--kda-typography-family-monospace-font)">
               { data.arbitrum.send_root }
             </DetailedInfo.ItemValue>
 
@@ -709,7 +713,7 @@ const BlockDetails = ({ query }: Props) => {
             >
               Delayed messages
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue>
+            <DetailedInfo.ItemValue fontFamily="var(--kda-typography-family-monospace-font)">
               { data.arbitrum.delayed_messages.toLocaleString() }
             </DetailedInfo.ItemValue>
           </>
@@ -722,7 +726,7 @@ const BlockDetails = ({ query }: Props) => {
             >
               Nonce
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue>
+            <DetailedInfo.ItemValue fontFamily="var(--kda-typography-family-monospace-font)">
               { data.nonce }
             </DetailedInfo.ItemValue>
           </>

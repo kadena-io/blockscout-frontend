@@ -4,6 +4,7 @@ import addressEntity from './globals/address-entity';
 import entity from './globals/entity';
 import recaptcha from './globals/recaptcha';
 import scrollbar from './globals/scrollbar';
+import txEntity from './globals/tx-entity';
 
 const webkitAutofillOverrides = {
   WebkitTextFillColor: 'var(--chakra-colors-input-fg)',
@@ -54,6 +55,7 @@ const globalCss: SystemConfig['globalCss'] = {
   ...scrollbar,
   ...entity,
   ...addressEntity,
+  ...txEntity,
 };
 
 export default globalCss;
