@@ -11,32 +11,7 @@ interface Props {
   className?: string;
 }
 
-const LogoFallback = ({ isCollapsed, isSmall }: { isCollapsed?: boolean; isSmall?: boolean }) => {
-  const display = isSmall ? {
-    base: 'none',
-    lg: isCollapsed === false ? 'none' : 'block',
-    xl: isCollapsed ? 'block' : 'none',
-  } : {
-    base: 'block',
-    lg: isCollapsed === false ? 'block' : 'none',
-    xl: isCollapsed ? 'none' : 'block',
-  };
-
-  return (
-    <IconSvg
-      name={ isSmall ? 'networks/icon-placeholder' : 'networks/logo-placeholder' }
-      width={ isSmall ? '30px' : '120px' }
-      height="100%"
-      color={{ base: 'blue.600', _dark: 'white' }}
-      display={ display }
-    />
-  );
-};
-
-const INVERT_FILTER = 'brightness(0) invert(1)';
-
 const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
-
   const logoSrc = useColorModeValue('var(--kda-icons-brands-kadena-logo-light)', 'var(--kda-icons-brands-kadena-logo-dark)');
   const iconSrc = useColorModeValue('var(--kda-icons-brands-kadena-rounded-green)', 'var(--kda-icons-brands-kadena-rounded-white)');
 
