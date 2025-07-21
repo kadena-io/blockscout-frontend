@@ -22,27 +22,57 @@ const TxDetailsOther = ({ nonce, type, position, queueIndex }: Props) => {
             typeof type === 'number' && (
               <Box key="type">
                 <Text as="span" fontWeight="500">Txn type: </Text>
-                <Text fontWeight="600" as="span">{ type }</Text>
-                { type === 2 && <Text fontWeight="400" as="span" ml={ 1 } color="text.secondary">(EIP-1559)</Text> }
-                { type === 3 && <Text fontWeight="400" as="span" ml={ 1 } color="text.secondary">(EIP-4844)</Text> }
-                { type === 4 && <Text fontWeight="400" as="span" ml={ 1 } color="text.secondary">(EIP-7702)</Text> }
+                <Text fontWeight="600" as="span" fontFamily="var(--kda-typography-family-monospace-font)">{ type }</Text>
+                { type === 2 && (
+                  <Text
+                    fontWeight="400"
+                    as="span"
+                    ml={ 1 }
+                    color="text.secondary"
+                    fontFamily="var(--kda-typography-family-monospace-font)"
+                  >
+                    (EIP-1559)
+                  </Text>
+                ) }
+                { type === 3 && (
+                  <Text
+                    fontWeight="400"
+                    as="span"
+                    ml={ 1 }
+                    color="text.secondary"
+                    fontFamily="var(--kda-typography-family-monospace-font)"
+                  >
+                    (EIP-4844)
+                  </Text>
+                ) }
+                { type === 4 && (
+                  <Text
+                    fontWeight="400"
+                    as="span"
+                    ml={ 1 }
+                    color="text.secondary"
+                    fontFamily="var(--kda-typography-family-monospace-font)"
+                  >
+                    (EIP-7702)
+                  </Text>
+                ) }
               </Box>
             ),
             queueIndex !== undefined ? (
               <Box key="queueIndex">
                 <Text as="span" fontWeight="500">Queue index: </Text>
-                <Text fontWeight="600" as="span">{ queueIndex }</Text>
+                <Text fontWeight="600" as="span" fontFamily="var(--kda-typography-family-monospace-font)">{ queueIndex }</Text>
               </Box>
             ) : (
               <Box key="nonce">
                 <Text as="span" fontWeight="500">Nonce: </Text>
-                <Text fontWeight="600" as="span">{ nonce }</Text>
+                <Text fontWeight="600" as="span" fontFamily="var(--kda-typography-family-monospace-font)">{ nonce }</Text>
               </Box>
             ),
             position !== null && position !== undefined && (
               <Box key="position">
                 <Text as="span" fontWeight="500">Position: </Text>
-                <Text fontWeight="600" as="span">{ position }</Text>
+                <Text fontWeight="600" as="span" fontFamily="var(--kda-typography-family-monospace-font)">{ position }</Text>
               </Box>
             ),
           ]

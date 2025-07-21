@@ -51,7 +51,7 @@ const HashStringShortenDynamic = ({ hash, fontWeight = '400', noTooltip, tailLen
 
     const parentWidth = getWidth(parent);
 
-    if (getWidth(shadowEl) > parentWidth) {
+    if (getWidth(shadowEl) > parentWidth - 40) {
       const tail = hash.slice(-tailLength);
       let leftI = HEAD_MIN_LENGTH;
       let rightI = hash.length - tailLength;
@@ -66,7 +66,7 @@ const HashStringShortenDynamic = ({ hash, fontWeight = '400', noTooltip, tailLen
           rightI = medI;
         }
       }
-      setDisplayedString(hash.slice(0, rightI - 1) + '...' + tail);
+      setDisplayedString(hash.slice(0, rightI - (hash.length > (4 * 16) ? (16 / 2) : 1)) + '...' + tail);
     } else {
       setDisplayedString(hash);
     }
