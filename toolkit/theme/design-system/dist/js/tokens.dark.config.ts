@@ -19,6 +19,7 @@ export const cssVars: CSSVars = {
   'kda-explorer-alert-loading': '#a0cbf4',
   'kda-explorer-button-background-color': '#52ffc6',
   'kda-explorer-button-surface-color': '#000',
+  'kda-explorer-hero-banner-title-font-width': 'auto',
   'kda-explorer-hero-banner-title-font-size': '1.5rem',
   'kda-explorer-hero-banner-title-font-weight': '500',
   'kda-explorer-hero-banner-title-font-lineHeight': '1.5rem',
@@ -1058,6 +1059,7 @@ export default {
         banner: {
           title: {
             font: {
+              width: 'auto',
               size: '1.5rem',
               weight: '500',
               lineHeight: '1.5rem',

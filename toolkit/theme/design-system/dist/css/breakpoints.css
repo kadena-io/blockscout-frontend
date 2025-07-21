@@ -5,6 +5,18 @@
  * Changes will be overwritten. Please update the source design tokens instead.
  */
 
+@media (max-width: 30rem) {
+  :root {
+    --kda-explorer-hero-banner-title-font-width: 100%;
+    --kda-explorer-hero-banner-title-font-size: 1.25rem;
+
+    &.dark {
+      --kda-explorer-hero-banner-title-font-width: 100%;
+      --kda-explorer-hero-banner-title-font-size: 1.25rem;
+    }
+  }
+}
+
 @media (min-width: 64rem) {
   :root {
     --kda-explorer-hero-banner-title-font-size: 1.75rem;

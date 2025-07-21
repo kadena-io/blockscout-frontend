@@ -5,11 +5,25 @@
         "banner": {
           "title": {
             "font": {
+              "width": {
+                "$type": "dimension",
+                "$value": "auto",
+                "$extensions": {
+                  "breakpoint": {
+                    "(max-width: 30rem)": {
+                      "value": "100%"
+                    }
+                  }
+                }
+              },
               "size": {
                 "$type": "dimension",
                 "$value": "{kda.foundation.typography.fontSize.xl}",
                 "$extensions": {
                   "breakpoint": {
+                    "(max-width: 30rem)": {
+                      "value": "{kda.foundation.typography.fontSize.lg}"
+                    },
                     "(min-width: {kda.foundation.breakpoint.lg})": {
                       "value": "{kda.foundation.typography.fontSize.2xl}"
                     }

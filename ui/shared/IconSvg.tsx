@@ -29,4 +29,20 @@ const IconSvg = React.forwardRef(
 
 IconSvg.displayName = 'IconSvg';
 
+export interface ImageProps extends HTMLChakraProps<'div'> {
+  isLoading?: boolean;
+}
+
+export const ImageSvg = React.forwardRef(
+  function ImageSvg({ isLoading = false, ...props }: ImageProps, ref: React.ForwardedRef<HTMLDivElement>) {
+    return (
+      <Skeleton loading={ isLoading } display="inline-block" asChild { ...props } ref={ ref }>
+        <chakra.div width="100%" height="100%" backgroundRepeat="no-repeat !important" backgroundSize="contain !important" backgroundPosition="center"/>
+      </Skeleton>
+    );
+  },
+);
+
+ImageSvg.displayName = 'ImageSvg';
+
 export default IconSvg;
