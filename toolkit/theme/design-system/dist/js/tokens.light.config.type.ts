@@ -43,6 +43,7 @@ export type KDADesignSystemLightTokens = {
         banner: {
           title: {
             font: {
+              width: string;
               size: string;
               weight: string;
               lineHeight: string;

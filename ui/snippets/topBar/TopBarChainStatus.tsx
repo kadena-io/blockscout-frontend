@@ -23,8 +23,10 @@ const TopBarChainStats = () => {
         <Skeleton loading={ isLoading }>
           <chakra.span
             fontSize="var(--kda-explorer-top-bar-font-size)"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
             color="text.secondary"
-          >{ !isMobile ? config.app.name : config.app.shortName } (v{ config.app.version }) </chakra.span>
+          >{ !isMobile ? config.app.name : config.app.shortName } { !isMobile && `(v${ config.app.version })` }</chakra.span>
         </Skeleton>
         <TextSeparator color="transparent"/>
         <Skeleton loading={ isLoading }>

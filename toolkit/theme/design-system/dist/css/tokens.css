@@ -15,6 +15,7 @@
   --kda-explorer-alert-loading: #194268;
   --kda-explorer-button-background-color: #20624c;
   --kda-explorer-button-surface-color: #fff;
+  --kda-explorer-hero-banner-title-font-width: auto;
   --kda-explorer-hero-banner-title-font-size: 1.5rem;
   --kda-explorer-hero-banner-title-font-weight: 500;
   --kda-explorer-hero-banner-title-font-line-height: 1.5rem;
@@ -1025,6 +1026,7 @@
     --kda-explorer-alert-loading: #a0cbf4;
     --kda-explorer-button-background-color: #52ffc6;
     --kda-explorer-button-surface-color: #000;
+    --kda-explorer-hero-banner-title-font-width: auto;
     --kda-explorer-hero-banner-title-font-size: 1.5rem;
     --kda-explorer-hero-banner-title-font-weight: 500;
     --kda-explorer-hero-banner-title-font-line-height: 1.5rem;

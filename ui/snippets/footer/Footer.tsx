@@ -13,7 +13,7 @@ import useIssueUrl from 'lib/hooks/useIssueUrl';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { copy } from 'toolkit/utils/htmlEntities';
-import IconSvg from 'ui/shared/IconSvg';
+import IconSvg, { ImageSvg } from 'ui/shared/IconSvg';
 import { CONTENT_MAX_WIDTH } from 'ui/shared/layout/utils';
 import NetworkAddToWallet from 'ui/shared/NetworkAddToWallet';
 
@@ -130,7 +130,24 @@ const Footer = () => {
               height={ 4 }
             />
           </Link>
+          <span>and</span>
+          <Link
+            href="https://www.kadena.io?ref=chainweb-evm-blockscout"
+            target="_blank"
+            display="inline-flex"
+            color={ logoColor }
+            _hover={{ color: logoColor }}
+          >
+            <ImageSvg
+              background={{ base: 'var(--kda-icons-brands-kadena-logo-light)', _dark: 'var(--kda-icons-brands-kadena-logo-dark)' }}
+              width="80px"
+              height={ 4 }
+            />
+          </Link>
         </Flex>
+        <Text mt={ 3 } fontSize="xs">
+          This explorer is forked from Blockscout and customized for Kadena Chainweb EVM platform maintained by Kadena.
+        </Text>
         <Text mt={ 3 } fontSize="xs">
           Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.
         </Text>

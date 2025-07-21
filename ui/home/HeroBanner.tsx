@@ -37,13 +37,20 @@ const HeroBanner = () => {
             lineHeight="var(--kda-explorer-hero-banner-title-font-line-height)"
             fontWeight="var(--kda-explorer-hero-banner-title-font-weight)"
             color="var(--kda-explorer-hero-banner-title-font-color-name)"
+            justifyContent="space-between"
             display="flex"
             gap="var(--kda-explorer-hero-banner-title-margin-gap)"
             alignItems="center"
             width="var(--kda-explorer-hero-banner-column-width)"
           >
             <Span as="span" whiteSpace={{ base: 'normal', lg: 'nowrap' }}>
-              { !isMobile ? config.app.name : config.app.shortName }
+              <Span
+                width="var(--kda-explorer-hero-banner-title-width)"
+                whiteSpace="nowrap"
+                flex={ 1 }
+              >
+                { !isMobile ? config.app.name : config.app.shortName }
+              </Span>
               <Span
                 as="span"
                 color="var(--kda-explorer-hero-banner-title-font-color-prefix)"
