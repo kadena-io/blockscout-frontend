@@ -4,8 +4,8 @@ const proxyToTestnet = (cid) => [
     destination: `https://chain-${ cid }.evm-testnet-blockscout.chainweb.com/socket/:path*`,
   },
   {
-    source: '/stats/:path*',
-    destination: `https://chain-${ cid }.evm-testnet-blockscout.chainweb.com/stats/:path*`,
+    source: '/stats-service/:path*',
+    destination: `https://chain-${ cid }.evm-testnet-blockscout.chainweb.com/stats-service/:path*`,
   },
   {
     source: '/visualizer/:path*',
