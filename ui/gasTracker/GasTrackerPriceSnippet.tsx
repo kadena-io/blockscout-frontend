@@ -62,9 +62,9 @@ const GasTrackerPriceSnippet = ({ data, type, isLoading }: Props) => {
         { typeof data.time === 'number' && data.time > 0 && <span> / { (data.time / SECOND).toLocaleString(undefined, { maximumFractionDigits: 1 }) }s</span> }
       </Skeleton>
       <Skeleton loading={ isLoading } fontSize="sm" color="text.secondary" mt={ 2 } w="fit-content" whiteSpace="pre">
-        { typeof data.base_fee === 'number' && <span>Base { data.base_fee.toLocaleString(undefined, { maximumFractionDigits: 0 }) }</span> }
+        { typeof data.base_fee === 'number' && <span>Base { data.base_fee.toLocaleString(undefined, { maximumFractionDigits: 10 }) }</span> }
         { typeof data.base_fee === 'number' && typeof data.priority_fee === 'number' && <span> / </span> }
-        { typeof data.priority_fee === 'number' && <span>Priority { data.priority_fee.toLocaleString(undefined, { maximumFractionDigits: 0 }) }</span> }
+        { typeof data.priority_fee === 'number' && <span>Priority { data.priority_fee.toLocaleString(undefined, { maximumFractionDigits: 10 }) }</span> }
       </Skeleton>
     </Box>
   );

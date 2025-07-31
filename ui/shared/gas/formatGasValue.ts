@@ -14,7 +14,7 @@ export default function formatGasValue(data: GasPriceInfo, unit: GasUnit) {
         return `< 0.1 ${ currencyUnits.gwei }`;
       }
 
-      return `${ Number(data.price).toLocaleString(undefined, { maximumFractionDigits: 1 }) } ${ currencyUnits.gwei }`;
+      return `${ Number(data.price).toLocaleString(undefined, { maximumFractionDigits: 10 }) } ${ currencyUnits.gwei }`;
     }
 
     case 'usd': {
