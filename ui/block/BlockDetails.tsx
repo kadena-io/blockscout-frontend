@@ -40,6 +40,7 @@ import Utilization from 'ui/shared/Utilization/Utilization';
 import VerificationSteps from 'ui/shared/verificationSteps/VerificationSteps';
 import ZkSyncL2TxnBatchHashesInfo from 'ui/txnBatches/zkSyncL2/ZkSyncL2TxnBatchHashesInfo';
 
+import KDABlockRewards from './BlockRewards';
 import BlockDetailsBaseFeeCelo from './details/BlockDetailsBaseFeeCelo';
 import BlockDetailsBlobInfo from './details/BlockDetailsBlobInfo';
 import BlockDetailsZilliqaQuorumCertificate from './details/BlockDetailsZilliqaQuorumCertificate';
@@ -73,7 +74,7 @@ const BlockDetails = ({ query }: Props) => {
     return null;
   }
 
-  const { totalReward, staticReward, burntFees, txFees } = getBlockReward(data);
+  const { totalReward, burntFees, txFees } = getBlockReward(data);
 
   const validatorTitle = getNetworkValidatorTitle();
 
@@ -82,33 +83,7 @@ const BlockDetails = ({ query }: Props) => {
       return null;
     }
 
-    if (isPlaceholderData) {
-      return <Skeleton loading w="525px" h="20px"/>;
-    }
-
-    return (
-      <Text color="text.secondary" whiteSpace="break-spaces">
-        <Tooltip content="Static block reward">
-          <span>{ staticReward.dividedBy(WEI).toFixed() }</span>
-        </Tooltip>
-        { !txFees.isEqualTo(ZERO) && (
-          <>
-            { space }+{ space }
-            <Tooltip content="Txn fees">
-              <span>{ txFees.dividedBy(WEI).toFixed() }</span>
-            </Tooltip>
-          </>
-        ) }
-        { !burntFees.isEqualTo(ZERO) && (
-          <>
-            { space }-{ space }
-            <Tooltip content="Burnt fees">
-              <span>{ burntFees.dividedBy(WEI).toFixed() }</span>
-            </Tooltip>
-          </>
-        ) }
-      </Text>
-    );
+    return <KDABlockRewards query={ query }/>;
   })();
 
   const verificationTitle = `${ capitalize(getNetworkValidationActionText()) } by`;
@@ -382,10 +357,9 @@ const BlockDetails = ({ query }: Props) => {
             Block reward
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue columnGap={ 1 }>
-            <Skeleton loading={ isPlaceholderData } fontFamily="var(--kda-typography-family-monospace-font)">
-              { totalReward.dividedBy(WEI).toFixed() } { currencyUnits.ether }
+            <Skeleton loading={ isPlaceholderData } minH="140px" minW={{ base: '100%', md: '400px' }} w={{ base: '100%', md: 'min-content' }}>
+              { rewardBreakDown }
             </Skeleton>
-            { rewardBreakDown }
           </DetailedInfo.ItemValue>
         </>
       ) }
