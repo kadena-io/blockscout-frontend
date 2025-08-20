@@ -10,7 +10,7 @@ import { Field } from 'toolkit/chakra/field';
 import { Input } from 'toolkit/chakra/input';
 import { InputGroup } from 'toolkit/chakra/input-group';
 import { ClearButton } from 'toolkit/components/buttons/ClearButton';
-import { HOUR, SECOND } from 'toolkit/utils/consts';
+import { EXPONENT, HOUR, SECOND } from 'toolkit/utils/consts';
 
 import ContractMethodAddressButton from './ContractMethodAddressButton';
 import ContractMethodFieldLabel from './ContractMethodFieldLabel';
@@ -34,7 +34,7 @@ interface Props {
 const ContractMethodFieldInput = ({ data, hideLabel, path: name, className, isDisabled, isOptional: isOptionalProp, level }: Props) => {
   const ref = React.useRef<HTMLInputElement>(null);
 
-  const [ intPower, setIntPower ] = React.useState<number>(18);
+  const [ intPower, setIntPower ] = React.useState<number>(EXPONENT);
 
   const isNativeCoin = data.fieldType === 'native_coin';
   const isOptional = isOptionalProp || isNativeCoin;

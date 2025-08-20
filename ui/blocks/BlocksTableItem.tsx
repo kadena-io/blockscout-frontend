@@ -12,7 +12,6 @@ import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { TableCell, TableRow } from 'toolkit/chakra/table';
 import { Tooltip } from 'toolkit/chakra/tooltip';
-import { WEI } from 'toolkit/utils/consts';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
@@ -20,6 +19,7 @@ import IconSvg from 'ui/shared/IconSvg';
 import TimeWithTooltip from 'ui/shared/time/TimeWithTooltip';
 import Utilization from 'ui/shared/Utilization/Utilization';
 
+import { BurntFeesFormat } from './BlocksListItem';
 import { getBaseFeeValue } from './utils';
 
 interface Props {
@@ -120,12 +120,7 @@ const BlocksTableItem = ({ data, isLoading, enableTimeIncrement, animation }: Pr
       ) }
       { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees && (
         <TableCell >
-          <Flex alignItems="center" columnGap={ 2 }>
-            <IconSvg name="flame" boxSize={ 5 } color={{ _light: 'gray.500', _dark: 'inherit' }} isLoading={ isLoading }/>
-            <Skeleton loading={ isLoading } display="inline-block" fontFamily="var(--kda-typography-family-monospace-font)">
-              { burntFees.dividedBy(WEI).toFixed(8) }
-            </Skeleton>
-          </Flex>
+          <BurntFeesFormat burntFees={ burntFees } isLoading={ isLoading }/>
           <Tooltip content="Burnt fees / Txn fees * 100%" disabled={ isLoading }>
             <Utilization mt={ 2 } w="min-content" value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
           </Tooltip>

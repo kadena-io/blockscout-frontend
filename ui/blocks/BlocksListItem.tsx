@@ -1,4 +1,4 @@
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { chakra, Flex, Text, Box } from '@chakra-ui/react';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'es-toolkit';
 import React from 'react';
@@ -14,7 +14,7 @@ import { currencyUnits } from 'lib/units';
 import { Link } from 'toolkit/chakra/link';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tooltip } from 'toolkit/chakra/tooltip';
-import { WEI } from 'toolkit/utils/consts';
+import { EXPONENT, WEI } from 'toolkit/utils/consts';
 import BlockGasUsed from 'ui/shared/block/BlockGasUsed';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import BlockEntity from 'ui/shared/entities/block/BlockEntity';
@@ -33,6 +33,30 @@ interface Props {
 }
 
 const isRollup = config.features.rollup.isEnabled;
+
+export const BurntFeesFormat = ({ burntFees, isLoading }: { burntFees: BigNumber; isLoading?: boolean }) => {
+  let formattedBurntFees = burntFees.div(WEI).toFixed();
+  let tooltipContent = `Exact burnt fees ${ formattedBurntFees }`;
+
+  if (burntFees.isZero()) {
+    formattedBurntFees = '0';
+    tooltipContent = 'No burnt fees';
+  } else if (burntFees.div(WEI).isLessThan(0.000001)) {
+    formattedBurntFees = '< 0.000001';
+    tooltipContent = `Exact burnt fees ${ burntFees.div(WEI).toFixed(EXPONENT) }`;
+  }
+
+  return (
+    <Flex>
+      <Tooltip content={ tooltipContent } disabled={ isLoading }>
+        <IconSvg name="flame" boxSize={ 5 } color="gray.500" isLoading={ isLoading }/>
+      </Tooltip>
+      <Skeleton loading={ isLoading } display="inline-block" color="text.secondary" ml={ 2 }>
+        <chakra.span fontFamily="var(--kda-typography-family-monospace-font)">{ formattedBurntFees }</chakra.span>
+      </Skeleton>
+    </Flex>
+  );
+};
 
 const BlocksListItem = ({ data, isLoading, enableTimeIncrement, animation }: Props) => {
   const totalReward = getBlockTotalReward(data);
@@ -94,20 +118,22 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement, animation }: Pro
           <Text color="text.secondary">{ data.transactions_count }</Text>
         }
       </Flex>
-      <Box>
-        <Text fontWeight={ 500 }>Gas used</Text>
-        <Flex mt={ 2 }>
-          <Skeleton loading={ isLoading } display="inline-block" color="text.secondary" mr={ 4 }>
-            <span>{ BigNumber(data.gas_used || 0).toFormat() }</span>
-          </Skeleton>
-          <BlockGasUsed
-            gasUsed={ data.gas_used || undefined }
-            gasLimit={ data.gas_limit }
-            isLoading={ isLoading }
-            gasTarget={ data.gas_target_percentage || undefined }
-          />
-        </Flex>
-      </Box>
+      { !BigNumber(data.gas_used || 0).isZero() && (
+        <Box>
+          <Text fontWeight={ 500 }>Gas used</Text>
+          <Flex mt={ 2 }>
+            <Skeleton loading={ isLoading } display="inline-block" color="text.secondary" mr={ 4 }>
+              <span>{ BigNumber(data.gas_used || 0).toFormat() }</span>
+            </Skeleton>
+            <BlockGasUsed
+              gasUsed={ data.gas_used || undefined }
+              gasLimit={ data.gas_limit }
+              isLoading={ isLoading }
+              gasTarget={ data.gas_target_percentage || undefined }
+            />
+          </Flex>
+        </Box>
+      ) }
       { !isRollup && !config.UI.views.block.hiddenFields?.total_reward && (
         <Flex columnGap={ 2 }>
           <Text fontWeight={ 500 }>Reward { currencyUnits.ether }</Text>
@@ -116,16 +142,11 @@ const BlocksListItem = ({ data, isLoading, enableTimeIncrement, animation }: Pro
           </Skeleton>
         </Flex>
       ) }
-      { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees && (
+      { !isRollup && !config.UI.views.block.hiddenFields?.burnt_fees && data.transactions_count > 0 && (
         <Box>
           <Text fontWeight={ 500 }>Burnt fees</Text>
           <Flex columnGap={ 4 } mt={ 2 }>
-            <Flex>
-              <IconSvg name="flame" boxSize={ 5 } color="gray.500" isLoading={ isLoading }/>
-              <Skeleton loading={ isLoading } display="inline-block" color="text.secondary" ml={ 2 }>
-                <span>{ burntFees.div(WEI).toFixed() }</span>
-              </Skeleton>
-            </Flex>
+            <BurntFeesFormat burntFees={ burntFees } isLoading={ isLoading }/>
             <Utilization ml={ 4 } value={ burntFees.div(txFees).toNumber() } isLoading={ isLoading }/>
           </Flex>
         </Box>

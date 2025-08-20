@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { ZERO } from 'toolkit/utils/consts';
+import { EXPONENT, ZERO } from 'toolkit/utils/consts';
 
 interface Params {
   value: string;
@@ -11,7 +11,7 @@ interface Params {
 }
 
 export default function getCurrencyValue({ value, accuracy, accuracyUsd, decimals, exchangeRate }: Params) {
-  const valueCurr = BigNumber(value).div(BigNumber(10 ** Number(decimals || '18')));
+  const valueCurr = BigNumber(value).div(BigNumber(10 ** Number(decimals || EXPONENT)));
   const valueResult = accuracy ? valueCurr.dp(accuracy).toFormat() : valueCurr.toFormat();
 
   let usdResult: string | undefined;

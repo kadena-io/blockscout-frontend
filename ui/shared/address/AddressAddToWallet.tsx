@@ -15,6 +15,7 @@ import { IconButton } from 'toolkit/chakra/icon-button';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { toaster } from 'toolkit/chakra/toaster';
 import { Tooltip } from 'toolkit/chakra/tooltip';
+import { EXPONENT } from 'toolkit/utils/consts';
 import IconSvg from 'ui/shared/IconSvg';
 
 const feature = config.features.web3Wallet;
@@ -27,7 +28,7 @@ function getRequestParams(token: TokenInfo, tokenId?: string): WatchAssetParams 
         options: {
           address: token.address_hash,
           symbol: token.symbol || '',
-          decimals: Number(token.decimals ?? '18'),
+          decimals: Number(token.decimals ?? EXPONENT),
           image: token.icon_url || '',
         },
       };
