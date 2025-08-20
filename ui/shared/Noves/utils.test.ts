@@ -1,4 +1,5 @@
 import * as transactionMock from 'mocks/noves/transaction';
+import { EXPONENT } from 'toolkit/utils/consts';
 import type { NovesFlowViewItem } from 'ui/tx/assetFlows/utils/generateFlowViewData';
 
 import { getActionFromTo, getFromTo, getFromToValue } from './utils';
@@ -27,7 +28,7 @@ it('get data for FromTo component from flow item', async() => {
       nft: undefined,
       token: {
         address: '0x1bfe4298796198f8664b18a98640cec7c89b5baa',
-        decimals: 18,
+        decimals: EXPONENT,
         name: 'PQR-Test',
         symbol: 'PQR',
       },

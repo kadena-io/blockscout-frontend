@@ -2,6 +2,8 @@ import { padStart } from 'es-toolkit/compat';
 
 import type { CeloEpochDetails, CeloEpochElectionRewardDetails, CeloEpochElectionRewardDetailsResponse, CeloEpochListResponse } from 'types/api/epochs';
 
+import { EXPONENT } from 'toolkit/utils/consts';
+
 import * as addressMock from '../address/address';
 import * as tokenMock from '../tokens/tokenInfo';
 import * as tokenTransferMock from '../tokens/tokenTransfer';
@@ -24,7 +26,7 @@ export const epoch1: CeloEpochDetails = {
       token: tokenMock.tokenInfoERC20a,
       total: {
         value: '1000000000000000000',
-        decimals: '18',
+        decimals: EXPONENT.toString(),
       },
     },
   },
@@ -87,15 +89,15 @@ export const list: CeloEpochListResponse = {
       start_block_number: 18390714,
       distribution: {
         carbon_offsetting_transfer: {
-          decimals: '18',
+          decimals: EXPONENT.toString(),
           value: '1723199576750509130678',
         },
         community_transfer: {
-          decimals: '18',
+          decimals: EXPONENT.toString(),
           value: '68927983070020365227',
         },
         transfers_total: {
-          decimals: '18',
+          decimals: EXPONENT.toString(),
           value: '1792127559820529495905',
         },
       },

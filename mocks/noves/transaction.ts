@@ -1,5 +1,6 @@
 import type { NovesResponseData } from 'types/api/noves';
 
+import { EXPONENT } from 'toolkit/utils/consts';
 import type { TokensData } from 'ui/tx/assetFlows/utils/getTokensData';
 
 export const hash = '0x380400d04ebb4179a35b1d7fdef260776915f015e978f8587ef2704b843d4e53';
@@ -28,7 +29,7 @@ export const transaction: NovesResponseData = {
         },
         token: {
           address: '0x1bfe4298796198f8664b18a98640cec7c89b5baa',
-          decimals: 18,
+          decimals: EXPONENT,
           name: 'PQR-Test',
           symbol: 'PQR',
         },
@@ -47,7 +48,7 @@ export const transaction: NovesResponseData = {
         },
         token: {
           address: 'ETH',
-          decimals: 18,
+          decimals: EXPONENT,
           name: 'ETH',
           symbol: 'ETH',
         },
@@ -69,7 +70,7 @@ export const transaction: NovesResponseData = {
     transactionFee: {
       amount: '395521502109448',
       token: {
-        decimals: 18,
+        decimals: EXPONENT,
         symbol: 'ETH',
       },
     },

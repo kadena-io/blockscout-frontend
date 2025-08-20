@@ -2,7 +2,7 @@ import React from 'react';
 import type { AddEthereumChainParameter } from 'viem';
 
 import config from 'configs/app';
-import { SECOND } from 'toolkit/utils/consts';
+import { EXPONENT, SECOND } from 'toolkit/utils/consts';
 
 import useRewardsActivity from '../hooks/useRewardsActivity';
 import useProvider from './useProvider';
@@ -19,7 +19,7 @@ function getParams(): AddEthereumChainParameter {
     nativeCurrency: {
       name: config.chain.currency.name ?? '',
       symbol: config.chain.currency.symbol ?? '',
-      decimals: config.chain.currency.decimals ?? 18,
+      decimals: config.chain.currency.decimals ?? EXPONENT,
     },
     rpcUrls: config.chain.rpcUrls,
     blockExplorerUrls: [ config.app.baseUrl ],

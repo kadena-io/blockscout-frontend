@@ -345,7 +345,7 @@ const BlockDetails = ({ query }: Props) => {
         </>
       ) }
 
-      { !rollupFeature.isEnabled && !totalReward.isEqualTo(ZERO) && !config.UI.views.block.hiddenFields?.total_reward && (
+      { !rollupFeature.isEnabled && !totalReward.isEqualTo(ZERO) && (
         <>
           <DetailedInfo.ItemLabel
             hint={

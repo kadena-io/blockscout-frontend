@@ -1,18 +1,15 @@
 import { chakra, Text } from '@chakra-ui/react';
-import BigNumber from 'bignumber.js';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
-import useApiQuery from 'lib/api/useApiQuery';
 import { currencyUnits } from 'lib/units';
 import { Skeleton } from 'toolkit/chakra/skeleton';
 import { Tooltip } from 'toolkit/chakra/tooltip';
 import { Hint } from 'toolkit/components/Hint/Hint';
-import { WEI, ZERO } from 'toolkit/utils/consts';
 import { space } from 'toolkit/utils/htmlEntities';
 
-import getBlockReward from '../../lib/block/getBlockReward';
 import RawDataSnippet from '../shared/RawDataSnippet';
 import type { BlockQuery } from './useBlockQuery';
+import { useKDABlockRewardsData } from './useKDABlockRewards';
 
 interface Props {
   query: BlockQuery;
@@ -20,33 +17,6 @@ interface Props {
 
 type MouseEnterLeaveHandler = (event: React.MouseEvent<HTMLDivElement>) => void;
 type MouseEnterLeaveLabelHandler = (event: React.MouseEvent<HTMLSpanElement>) => void;
-
-type TKDABlockRewardsData = {
-  isLoading: boolean;
-  loading: {
-    queryIsLoading: boolean;
-    withdrawalsIsLoading: boolean;
-  };
-  data: {
-    blockData?: BlockQuery['data'];
-    withdrawalsData?: { items: Array<{ amount?: string }> };
-  };
-  calculatedValues: {
-    rewardAmount: BigNumber;
-    rewardBaseFee: BigNumber;
-    txFees: BigNumber;
-    burntFees: BigNumber;
-    hasRewardBaseFee: boolean;
-    hasTxFees: boolean;
-    hasBurntFees: boolean;
-  } | null;
-  formattedValues: {
-    rewardAmount?: string;
-    rewardBaseFee?: string;
-    txFees?: string;
-    burntFees?: string;
-  };
-};
 
 interface TKDABreakdownItemProps {
   isLoading: boolean;
@@ -116,55 +86,7 @@ const BreakdownLabel = React.forwardRef<HTMLSpanElement, BreakdownLabelProps>(({
 
 BreakdownLabel.displayName = 'BreakdownLabel';
 
-export const KDABlockRewardsData = (query: BlockQuery): TKDABlockRewardsData => {
-  const { data, isLoading: queryIsLoading } = query;
-
-  const { data: withdrawalsData, isLoading: withdrawalsIsLoading } = useApiQuery('general:block_withdrawals', {
-    queryParams: { height_or_hash: `${ data?.height }` },
-  });
-  const { totalReward, burntFees, txFees } = data ? getBlockReward(data) : { totalReward: ZERO, burntFees: ZERO, txFees: ZERO };
-
-  const calculatedValues = useMemo(() => {
-    if (!withdrawalsData?.items?.length) {
-      return null;
-    }
-
-    const [ reward ] = withdrawalsData.items;
-    const rewardAmount = BigNumber(reward.amount ?? 0);
-    const rewardBaseFee = BigNumber(rewardAmount.toNumber() - totalReward.toNumber() + burntFees.toNumber());
-
-    return {
-      rewardAmount: rewardAmount.dividedBy(WEI),
-      rewardBaseFee: rewardBaseFee.dividedBy(WEI),
-      txFees: txFees.dividedBy(WEI),
-      burntFees: burntFees.dividedBy(WEI),
-      hasRewardBaseFee: !rewardBaseFee.isEqualTo(ZERO),
-      hasTxFees: !txFees.isEqualTo(ZERO),
-      hasBurntFees: !burntFees.isEqualTo(ZERO),
-    };
-  }, [ withdrawalsData, totalReward, burntFees, txFees ]);
-
-  return {
-    isLoading: withdrawalsIsLoading || queryIsLoading,
-    loading: {
-      queryIsLoading,
-      withdrawalsIsLoading,
-    },
-    data: {
-      blockData: data,
-      withdrawalsData,
-    },
-    calculatedValues,
-    formattedValues: {
-      rewardAmount: calculatedValues?.rewardAmount ? BigNumber(calculatedValues.rewardAmount).toFixed() : undefined,
-      rewardBaseFee: calculatedValues?.rewardBaseFee ? BigNumber(calculatedValues.rewardBaseFee).toFixed() : undefined,
-      txFees: calculatedValues?.txFees ? BigNumber(calculatedValues.txFees).toFixed() : undefined,
-      burntFees: calculatedValues?.burntFees ? BigNumber(calculatedValues.burntFees).toFixed() : undefined,
-    },
-  };
-};
-
-const KDABlockRewards = ({ query /* data, txFees, burntFees, totalReward */ }: Props) => {
+const KDABlockRewards = ({ query }: Props) => {
   const blockRewardValuesRef = React.useRef<HTMLDivElement>(null);
   const blockRewardLabelRef = React.useRef<HTMLSpanElement>(null);
   const txFeesValuesRef = React.useRef<HTMLDivElement>(null);
@@ -181,7 +103,8 @@ const KDABlockRewards = ({ query /* data, txFees, burntFees, totalReward */ }: P
       txFees,
       burntFees,
     },
-  } = KDABlockRewardsData(query);
+  } = useKDABlockRewardsData(query);
+
   const {
     hasRewardBaseFee,
     hasTxFees,
@@ -260,7 +183,7 @@ const KDABlockRewards = ({ query /* data, txFees, burntFees, totalReward */ }: P
             <Text color="text.primary" fontSize="sm" display="inline" fontFamily="var(--global-font-body, var(--font-fallback))">
               <chakra.span whiteSpace="nowrap">
                 <Hint label="PoW mining reward"/>
-                Block reward
+                Mining reward
               </chakra.span>
             </Text>
           </KDABreakdownItem>

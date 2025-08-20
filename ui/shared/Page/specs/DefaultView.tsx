@@ -3,6 +3,7 @@ import React from 'react';
 import type { TokenInfo } from 'types/api/token';
 
 import * as addressMock from 'mocks/address/address';
+import { EXPONENT } from 'toolkit/utils/consts';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import * as TokenEntity from 'ui/shared/entities/token/TokenEntity';
 import EntityTags from 'ui/shared/EntityTags/EntityTags';
@@ -18,7 +19,7 @@ const DefaultView = () => {
     type: 'ERC-20',
     symbol: 'SHAAAAAAAAAAAAA',
     name: null,
-    decimals: '18',
+    decimals: EXPONENT.toString(),
     holders_count: '1',
     exchange_rate: null,
     total_supply: null,
