@@ -158,7 +158,7 @@ const KDABlockRewards = ({ query }: Props) => {
   const handleBurntFeesValuesMouseLeave = useCallback(() => onMouseLeaveValues(burntFeesValuesRef), [ onMouseLeaveValues ]);
 
   if (isLoading) {
-    return <Skeleton loading={ isLoading } minH="140px" maxW="380px" w="100%"/>;
+    return <Skeleton loading={ isLoading } minH={ hasTxFees && hasBurntFees ? '140px' : '24px' } maxW="380px" w="100%"/>;
   }
 
   if (!calculatedValues) {
@@ -170,110 +170,118 @@ const KDABlockRewards = ({ query }: Props) => {
       <chakra.span fontFamily="var(--kda-typography-family-monospace-font)">
         { rewardAmount } { currencyUnits.ether }
       </chakra.span>
-      <chakra.div>
-        <Text color="text.primary" fontWeight="bold" fontSize="sm" display="inline">
-          Breakdown{ space }
-        </Text>
-        <chakra.div display={{ base: 'none', md: 'flex' }} flexDirection="row" gap={ 2 } alignItems="center" mt={ 3 }>
-          <KDABreakdownItem
-            ref={ blockRewardValuesRef }
-            isLoading={ isLoading }
-            onMouseEnter={ handleBlockRewardMouseEnter }
-            onMouseLeave={ handleBlockRewardMouseLeave }>
-            <Text color="text.primary" fontSize="sm" display="inline" fontFamily="var(--global-font-body, var(--font-fallback))">
-              <chakra.span whiteSpace="nowrap">
-                <Hint label="PoW mining reward"/>
-                Mining reward
-              </chakra.span>
-            </Text>
-          </KDABreakdownItem>
-          +
-          <KDABreakdownItem
-            ref={ txFeesValuesRef }
-            isLoading={ isLoading }
-            onMouseEnter={ handleTxFeesMouseEnter }
-            onMouseLeave={ handleTxFeesMouseLeave }>
-            <Text color="text.primary" fontSize="sm" display="inline" fontFamily="var(--global-font-body, var(--font-fallback))">
-              <chakra.span whiteSpace="nowrap">
-                <Hint label="Total transaction fees collected from all transactions in the block"/>
-                Transaction fees
-              </chakra.span>
-            </Text>
-          </KDABreakdownItem>
-          -
-          <KDABreakdownItem
-            ref={ burntFeesValuesRef }
-            isLoading={ isLoading }
-            onMouseEnter={ handleBurntFeesMouseEnter }
-            onMouseLeave={ handleBurntFeesMouseLeave }>
-            <Text color="text.primary" fontSize="sm" display="inline" fontFamily="var(--global-font-body, var(--font-fallback))">
-              <chakra.span whiteSpace="nowrap">
-                <Hint label="Base fees burned (EIP-1559 mechanism)"/>
-                Burnt fees
-              </chakra.span>
-            </Text>
-          </KDABreakdownItem>
-        </chakra.div>
-        <RawDataSnippet
-          data={ (
-            <Text
-              display="flex"
-              flexDirection={{ base: 'column', md: 'row' }}
-              color="text.secondary"
-              fontSize="sm"
-              whiteSpace="nowrap"
-              gap={ 1 }
-              fontFamily="var(--kda-typography-family-monospace-font)">
-              { hasRewardBaseFee && (
-                <Tooltip content="Block reward">
-                  <BreakdownLabel
-                    ref={ blockRewardLabelRef }
-                    onMouseEnterValues={ handleBlockRewardValuesMouseEnter }
-                    onMouseLeaveValues={ handleBlockRewardValuesMouseLeave }
-                  >
-                    <chakra.span display={{ base: '', md: 'none' }} fontFamily="var(--global-font-body, var(--font-fallback))">
-                      Reward fee:
-                    </chakra.span>
-                    <span>{ rewardBaseFee }</span>
-                  </BreakdownLabel>
-                </Tooltip>
-              )
-              }
-              { space }+{ space }
-              { hasTxFees && (
-                <Tooltip content="Total transaction fees">
-                  <BreakdownLabel
-                    ref={ txFeesLabelRef }
-                    onMouseEnterValues={ handleTxFeesValuesMouseEnter }
-                    onMouseLeaveValues={ handleTxFeesValuesMouseLeave }
-                  >
-                    <chakra.span display={{ base: '', md: 'none' }} fontFamily="var(--global-font-body, var(--font-fallback))">
-                      Transaction fees:
-                    </chakra.span>
-                    <span>{ txFees }</span>
-                  </BreakdownLabel>
-                </Tooltip>
+      { hasTxFees && hasBurntFees && (
+        <chakra.div>
+          <Text color="text.primary" fontWeight="bold" fontSize="sm" display="inline">
+            Breakdown{ space }
+          </Text>
+          <chakra.div display={{ base: 'none', md: 'flex' }} flexDirection="row" gap={ 2 } alignItems="center" mt={ 3 }>
+            <KDABreakdownItem
+              ref={ blockRewardValuesRef }
+              isLoading={ isLoading }
+              onMouseEnter={ handleBlockRewardMouseEnter }
+              onMouseLeave={ handleBlockRewardMouseLeave }>
+              <Text color="text.primary" fontSize="sm" display="inline" fontFamily="var(--global-font-body, var(--font-fallback))">
+                <chakra.span whiteSpace="nowrap">
+                  <Hint label="PoW mining reward"/>
+                  Mining reward
+                </chakra.span>
+              </Text>
+            </KDABreakdownItem>
+            +
+            <KDABreakdownItem
+              ref={ txFeesValuesRef }
+              isLoading={ isLoading }
+              onMouseEnter={ handleTxFeesMouseEnter }
+              onMouseLeave={ handleTxFeesMouseLeave }>
+              <Text color="text.primary" fontSize="sm" display="inline" fontFamily="var(--global-font-body, var(--font-fallback))">
+                <chakra.span whiteSpace="nowrap">
+                  <Hint label="Total transaction fees collected from all transactions in the block"/>
+                  Transaction fees
+                </chakra.span>
+              </Text>
+            </KDABreakdownItem>
+            -
+            <KDABreakdownItem
+              ref={ burntFeesValuesRef }
+              isLoading={ isLoading }
+              onMouseEnter={ handleBurntFeesMouseEnter }
+              onMouseLeave={ handleBurntFeesMouseLeave }>
+              <Text color="text.primary" fontSize="sm" display="inline" fontFamily="var(--global-font-body, var(--font-fallback))">
+                <chakra.span whiteSpace="nowrap">
+                  <Hint label="Base fees burned (EIP-1559 mechanism)"/>
+                  Burnt fees
+                </chakra.span>
+              </Text>
+            </KDABreakdownItem>
+          </chakra.div>
+          { hasTxFees && hasBurntFees && (
+            <RawDataSnippet
+              data={ (
+                <Text
+                  display="flex"
+                  flexDirection={{ base: 'column', md: 'row' }}
+                  color="text.secondary"
+                  fontSize="sm"
+                  whiteSpace="nowrap"
+                  gap={ 1 }
+                  fontFamily="var(--kda-typography-family-monospace-font)">
+                  { hasRewardBaseFee && (
+                    <Tooltip content="Block reward">
+                      <BreakdownLabel
+                        ref={ blockRewardLabelRef }
+                        onMouseEnterValues={ handleBlockRewardValuesMouseEnter }
+                        onMouseLeaveValues={ handleBlockRewardValuesMouseLeave }
+                      >
+                        <chakra.span display={{ base: '', md: 'none' }} fontFamily="var(--global-font-body, var(--font-fallback))">
+                          Reward fee:
+                        </chakra.span>
+                        <span>{ rewardBaseFee }</span>
+                      </BreakdownLabel>
+                    </Tooltip>
+                  )
+                  }
+                  { hasTxFees && (
+                    <>
+                      { space }+{ space }
+                      <Tooltip content="Total transaction fees">
+                        <BreakdownLabel
+                          ref={ txFeesLabelRef }
+                          onMouseEnterValues={ handleTxFeesValuesMouseEnter }
+                          onMouseLeaveValues={ handleTxFeesValuesMouseLeave }
+                        >
+                          <chakra.span display={{ base: '', md: 'none' }} fontFamily="var(--global-font-body, var(--font-fallback))">
+                            Transaction fees:
+                          </chakra.span>
+                          <span>{ txFees }</span>
+                        </BreakdownLabel>
+                      </Tooltip>
+                    </>
+                  ) }
+                  { hasBurntFees && (
+                    <>
+                      { space }-{ space }
+                      <Tooltip content="Burnt fees">
+                        <BreakdownLabel
+                          ref={ burntFeesLabelRef }
+                          onMouseEnterValues={ handleBurntFeesValuesMouseEnter }
+                          onMouseLeaveValues={ handleBurntFeesValuesMouseLeave }
+                        >
+                          <chakra.span display={{ base: '', md: 'none' }} fontFamily="var(--global-font-body, var(--font-fallback))">
+                            Burnt fees:{ ' ' }
+                          </chakra.span>
+                          <span>{ burntFees }</span>
+                        </BreakdownLabel>
+                      </Tooltip>
+                    </>
+                  ) }
+                </Text>
               ) }
-              { space }-{ space }
-              { hasBurntFees && (
-                <Tooltip content="Burnt fees">
-                  <BreakdownLabel
-                    ref={ burntFeesLabelRef }
-                    onMouseEnterValues={ handleBurntFeesValuesMouseEnter }
-                    onMouseLeaveValues={ handleBurntFeesValuesMouseLeave }
-                  >
-                    <chakra.span display={{ base: '', md: 'none' }} fontFamily="var(--global-font-body, var(--font-fallback))">
-                      Burnt fees:{ ' ' }
-                    </chakra.span>
-                    <span>{ burntFees }</span>
-                  </BreakdownLabel>
-                </Tooltip>
-              ) }
-            </Text>
+              isLoading={ isLoading }
+            />
           ) }
-          isLoading={ isLoading }
-        />
-      </chakra.div>
+        </chakra.div>
+      ) }
     </chakra.div>
   );
 };

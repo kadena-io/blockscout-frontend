@@ -78,8 +78,17 @@ const BlockDetails = ({ query }: Props) => {
 
   const validatorTitle = getNetworkValidatorTitle();
 
+  const shouldHideRewardBreakdown = () => {
+    return (
+      rollupFeature.isEnabled ||
+      totalReward.isEqualTo(ZERO) ||
+      txFees.isEqualTo(ZERO) ||
+      burntFees.isEqualTo(ZERO)
+    ) && data.withdrawals_count === 0;
+  };
+
   const rewardBreakDown = (() => {
-    if (rollupFeature.isEnabled || totalReward.isEqualTo(ZERO) || txFees.isEqualTo(ZERO) || burntFees.isEqualTo(ZERO)) {
+    if (shouldHideRewardBreakdown()) {
       return null;
     }
 
@@ -345,19 +354,26 @@ const BlockDetails = ({ query }: Props) => {
         </>
       ) }
 
-      { !rollupFeature.isEnabled && !totalReward.isEqualTo(ZERO) && (
+      { !rollupFeature.isEnabled && (data.withdrawals_count ?? 0) > 0 && (
         <>
           <DetailedInfo.ItemLabel
             hint={
-              `For each block, the ${ validatorTitle } is rewarded with a finite amount of ${ config.chain.currency.symbol || 'native token' } 
-          on top of the fees paid for all transactions in the block`
+              data.transactions_count > 0 && data.burnt_fees !== '0' ?
+                `For each block, the ${ validatorTitle } is rewarded with a finite amount of ${ config.chain.currency.symbol || 'native token' } 
+          on top of the fees paid for all transactions in the block` :
+                'Mining rewards'
             }
             isLoading={ isPlaceholderData }
           >
             Block reward
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue columnGap={ 1 }>
-            <Skeleton loading={ isPlaceholderData } minH="140px" minW={{ base: '100%', md: '400px' }} w={{ base: '100%', md: 'min-content' }}>
+            <Skeleton
+              loading={ isPlaceholderData }
+              minH={ data.transactions_count > 0 && data.burnt_fees !== '0' ? '140px' : '24px' }
+              minW={{ base: '100%', md: '400px' }}
+              w={{ base: '100%', md: 'min-content' }}
+            >
               { rewardBreakDown }
             </Skeleton>
           </DetailedInfo.ItemValue>
